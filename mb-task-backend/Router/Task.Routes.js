@@ -4,14 +4,12 @@ const TaskModel = require('../models/Task.module');
 // const UserModel = require('../models/User.module');
 TaskRouter.use(express.json());
 
-
-
 TaskRouter.get('/', async (req,res)=>{
   const userId = req.headers.userId;
 
   try {
       const { page = 1, limit = 10, completed } = req.query;
-      const filter = { user_id: userId }; // Only fetch tasks for the authenticated user
+      const filter = { user_id: userId };
 
       if (completed !== undefined) {
           filter.completed = completed;
@@ -32,7 +30,8 @@ TaskRouter.get('/', async (req,res)=>{
           totalPages: Math.ceil(totalCount / limit),
           currentPage: page
       });
-  } catch (error) {
+  }
+  catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error' });
   }
@@ -42,8 +41,9 @@ TaskRouter.get('/', async (req,res)=>{
 
 TaskRouter.post('/create', async (req, res) => {
   const { title, content, due_date ,completed } = req.body;
+  const userId = req.headers.userId; 
   try {
-    const Task = await TaskModel.create({ title, content,  due_date , completed });
+    const Task = await TaskModel.create({ title, content,  due_date , completed , user_id: userId });
     res.status(201).json({ msg: 'Task created successfully', Task });
   }
   catch (error) {
