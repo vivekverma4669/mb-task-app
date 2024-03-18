@@ -7,38 +7,35 @@ TaskRouter.use(express.json());
 
 
 TaskRouter.get('/', async (req,res)=>{
+  const userId = req.headers.userId;
+
   try {
-    const { page = 1, limit = 10, completed } = req.query;
+      const { page = 1, limit = 10, completed } = req.query;
+      const filter = { user_id: userId }; // Only fetch tasks for the authenticated user
 
-    // Filter object based on completion status
-    const filter = {};
-    if (completed !== undefined) {
-        filter.completed = completed;
-    }
+      if (completed !== undefined) {
+          filter.completed = completed;
+      }
 
-    // Sorting by due_date in ascending order
-    const sortCriteria = { due_date: 1 };
+      const sortCriteria = { due_date: 1 };
 
-    // Fetch tasks with pagination, filtering, and sorting
-    const tasks = await TaskModel.find(filter)
-        .sort(sortCriteria)
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .exec();
+      const tasks = await TaskModel.find(filter)
+          .sort(sortCriteria)
+          .limit(limit * 1)
+          .skip((page - 1) * limit)
+          .exec();
 
-    // Get total count of tasks (for pagination)
-    const totalCount = await TaskModel.countDocuments(filter);
+      const totalCount = await TaskModel.countDocuments(filter);
 
-    // Send response with paginated tasks
-    res.json({
-        tasks,
-        totalPages: Math.ceil(totalCount / limit),
-        currentPage: page
-    });
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-}
+      res.json({
+          tasks,
+          totalPages: Math.ceil(totalCount / limit),
+          currentPage: page
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+  }
 });
 
 
@@ -75,10 +72,10 @@ TaskRouter.get('/:id', async (req, res) => {
 
 TaskRouter.put('/update/:id', async (req, res) => {
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content , due_date , completed } = req.body;
 
   try {
-      const updatedTask = await TaskModel.findByIdAndUpdate(id, { title, content }, { new: true });
+      const updatedTask = await TaskModel.findByIdAndUpdate(id, { title, content , due_date , completed}, { new: true });
 
       if (!updatedTask) {
           return res.status(404).json({ message: 'Task not found' });
