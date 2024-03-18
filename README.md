@@ -1,8 +1,13 @@
 <h1> Please check this repository because the frontend folder is not accessible.   <span>https://github.com/vivekverma4669/mern_task_app</span> </h1>
+
 Multi-User Task Application
 This is a multi-user task application where each user can manage their own tasks by performing CRUD (Create, Read, Update, Delete) operations. The application provides features like pagination, filtering tasks based on completion status, and ensuring security measures such as password hashing and user authorization.
+
  <img src=" " >
-Features
+
+  <br> 
+  
+<h2>Features</h2>
 User Authentication: Users need to authenticate themselves to access the application. Passwords are securely hashed for user security.
 
 Task Management: Each user can perform CRUD operations on their tasks, including creating new tasks, updating existing ones, marking tasks as completed, and deleting tasks.
@@ -21,6 +26,7 @@ MongoDB for database management
 Mongoose (ODM library for MongoDB)
 Backend Implementation
 The backend of the application is built using Node.js and Express.js. It provides RESTful APIs for performing CRUD operations on tasks. It includes the following features:
+
 
 User Authentication: Middleware to authenticate users using JWT (JSON Web Tokens).
 
@@ -43,11 +49,10 @@ Getting Started
 To run the application locally:
 
 Clone this repository to your local machine.
+
 Navigate to the backend directory and run npm install to install backend dependencies.
-Start the backend server by running npm start.
+Start the backend server by running node index.js.
 Navigate to the frontend directory and run npm install to install frontend dependencies.
-Start the frontend development server by running npm start.
+Start the frontend development server by running npm run  start.
 Ensure that MongoDB is running locally on your machine or update the MongoDB connection URI in the backend configuration file.
 
-Conclusion
-The multi-user task application provides a secure and efficient way for users to manage their tasks. With features like user authentication, CRUD operations on tasks, pagination, and filtering, it offers a comprehensive solution for task management needs.
