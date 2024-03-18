@@ -1,4 +1,4 @@
-<h1> Please check this repo becouse frontend folder is not accesable   <span>https://github.com/vivekverma4669/mern_task_app</span> </h1>
+<h1> Please check this repository because the frontend folder is not accessible.   <span>https://github.com/vivekverma4669/mern_task_app</span> </h1>
 Multi-User Task Application
 This is a multi-user task application where each user can manage their own tasks by performing CRUD (Create, Read, Update, Delete) operations. The application provides features like pagination, filtering tasks based on completion status, and ensuring security measures such as password hashing and user authorization.
  <img src=" " >
